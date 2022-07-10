@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Amazon.S3;
 using Amazon.S3.Model;
 
-namespace AWS.Controllers
+namespace ReconhecimentoFacial.Controllers
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,6 +1,7 @@
+using Concessionaria.Lib.MinhasExceptions;
 namespace ReconhecimentoFacial.Lib.Models
 {
-    public class Usuario
+    public class Usuario : ModelBase
     {
         public int Id { get; private set; }
         public string Email { get; private set; }
@@ -54,7 +55,7 @@ namespace ReconhecimentoFacial.Lib.Models
             {
                 return email;
             }
-            throw new DadosInvalidosException("Email deve conter @!");
+            throw new ValidacaoDeDados("Email deve conter @!");
         }
         public string ValidarCpf(string cpf)
         {          
@@ -64,9 +65,9 @@ namespace ReconhecimentoFacial.Lib.Models
             }
             throw new ValidacaoDeDados("cpf inválido!");
         }
-        public DateTime ValidarDataNascimento(string dataNascimento)
+        public DateTime ValidarDataNascimento(DateTime dataNascimento)
         {
-            if (dataNascimento.year <2010)
+            if (dataNascimento.Year <2010)
             {
                 return dataNascimento;
             }
