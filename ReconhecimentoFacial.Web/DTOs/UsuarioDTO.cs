@@ -2,15 +2,14 @@ namespace ReconhecimentoFacial.Web.DTOs
 {
     public class UsuarioDTO
     {
-        public int Id { get; private set; }
-        public string Email { get; private set; }
-        public string Cpf { get; private set; }
-        public DateTime DataNascimento { get; private set; }
-        public string Nome { get; private set; }
-        public string Senha { get; private set; }
-        public string? UrlImagemCadastro { get; private set; }
-        public DateTime DataCriacao { get; private set; }
-        public UsuarioDTO(int id, string email, string cpf, string dataNascimento, string nome, string senha, DateTime dataCriacao)
+        public int Id { get; set; }
+        public string Email { get;  set; }
+        public string Cpf { get; set; }
+        public DateTime DataNascimento { get; set; }
+        public string Nome { get; set; }
+        public string Senha { get; set; }
+        public DateTime DataCriacao { get; set; }
+        public UsuarioDTO()
         {
             
         }

@@ -9,13 +9,17 @@ namespace ReconhecimentoFacial.Lib.Models
         public DateTime DataNascimento { get; private set; }
         public string Nome { get; private set; }
         public string Senha { get; private set; }
-        public string UrlImagemCadastro { get; private set; }
+        public string? UrlImagemCadastro { get; private set; }
         public DateTime DataCriacao { get; private set; }
+        protected Usuario()
+        {
+            
+        }
         public Usuario(int id, string email, string cpf, DateTime dataNascimento, string nome, string senha, DateTime dataCriacao)
         {
             SetId(id);
             SetEmail(email);
-            SetCpf(Cpf);
+            SetCpf(cpf);
             SetDataNascimento(dataNascimento);
             SetNome(nome);
             Setsenha(senha);
