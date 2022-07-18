@@ -14,7 +14,36 @@ namespace ReconhecimentoFacial.Web.Controllers
     {
       _rekognitionClient = rekognitionClient;
     }
-    [HttpGet()]
+    [HttpPost("comparar")]
+    public async Task<IActionResult> CompararRosto(string nomeArquivoS3, IFormFile fotoLogin)
+    {
+      using (var memoryStream = new MemoryStream())
+      {
+        var request = new CompareFacesRequest();      
+        var requestSource = new Image()
+        {
+          S3Object = new S3Object()
+          {
+            Bucket = "registro-facial",
+            Name = nomeArquivoS3
+          }
+        };
+
+
+        await fotoLogin.CopyToAsync(memoryStream);
+        var requestTarget = new Image()
+        {
+          Bytes = memoryStream
+        };
+
+        request.SourceImage = requestSource;
+        request.TargetImage = requestTarget;
+
+        var response = await _rekognitionClient.CompareFacesAsync(request);
+        return Ok(response);
+      }
+    }
+    [HttpGet("Analisar")]
     public async Task<IActionResult> AnalisarRosto(string nomeArquivo)
     {
       var entrada = new DetectFacesRequest();
@@ -45,13 +74,7 @@ namespace ReconhecimentoFacial.Web.Controllers
             throw new ValidacaoDeDados("A imagem contém mais de um rosto");
         }
         else
-          throw new ValidacaoDeDados("A imagem não contém rosto");
-
-
-        
-
-
-                 
+          throw new ValidacaoDeDados("A imagem não contém rosto");                 
     }
   }
 }
