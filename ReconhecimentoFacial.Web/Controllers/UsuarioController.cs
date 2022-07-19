@@ -18,7 +18,7 @@ namespace ReconhecimentoFacial.Web.Controllers
         private readonly IAmazonS3 _amazonS3;
         private readonly AmazonRekognitionClient _rekognitionClient;
         private static readonly List<string> _extensoesImagem =
-        new List<string>() { "image/jpeg", "image/png" };
+        new List<string>() { "image/jpeg", "image/png", "image/jpg"};
         public UsuarioController(IUsuarioRepositorio repositorio, IAmazonS3 amazonS3,
                                  AmazonRekognitionClient rekognitionClient)
         {
@@ -129,20 +129,63 @@ namespace ReconhecimentoFacial.Web.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("LoginImagem")]
+        public async Task<IActionResult> LoginImagem(int id, IFormFile imagem)
+        {
+            var usuario = await _repositorio.BuscarPorId(id);
+            var imagemConfirmada = await CompararImagem(usuario.UrlImagemCadastro, imagem);
+            if (imagemConfirmada)
+            {
+                return Ok("Id visual confirmada!");
+            }
+            return BadRequest("Acesso negado, Usuário incompatível!");
+        }
+        private async Task<bool> CompararImagem(string nomeArquivoS3, IFormFile fotoLogin)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                var request = new CompareFacesRequest();
+                var requestSource = new Image()
+                {
+                    S3Object = new Amazon.Rekognition.Model.S3Object()
+                    {
+                        Bucket = "registro-facial",
+                        Name = nomeArquivoS3
+                    }
+                };
+
+
+                await fotoLogin.CopyToAsync(memoryStream);
+                var requestTarget = new Image()
+                {
+                    Bytes = memoryStream
+                };
+
+                request.SourceImage = requestSource;
+                request.TargetImage = requestTarget;
+
+                var response = await _rekognitionClient.CompareFacesAsync(request);
+                if (response.FaceMatches.Count == 1 && response.FaceMatches.First().Similarity >= 80)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
         [HttpGet("Login E-mail/Senha")]
         public async Task<IActionResult> LoginEmailSenha(string email, string senha)
         {
             var usuario = await _repositorio.BuscarUsuarioPorEmail(email);
             var verificacao = await ConferirSenha(usuario, senha);
-            if(verificacao)
+            if (verificacao)
             {
                 return Ok(usuario.Id);
             }
             return BadRequest("Login e Senha são incompatíveis!");
-        } 
+        }
         private async Task<bool> ConferirSenha(Usuario usuario, string senha)
         {
-            if(usuario.Senha == senha)
+            if (usuario.Senha == senha)
             {
                 return true;
             }
