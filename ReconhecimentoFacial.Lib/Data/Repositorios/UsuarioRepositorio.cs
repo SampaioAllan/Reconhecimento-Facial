@@ -14,5 +14,10 @@ namespace ReconhecimentoFacial.Lib.Data.Repositorios
             _dbSet.Find(id).SetEmail(emailAtualizado);
             await _context.SaveChangesAsync();
         }
+        public async Task AtualizarUrlImagemCadastro(int id, string urlAtualizado)
+        {
+            _dbSet.Find(id).SetUrlImagemCadastro(urlAtualizado);
+            await _context.SaveChangesAsync();
+        }
     }
 }

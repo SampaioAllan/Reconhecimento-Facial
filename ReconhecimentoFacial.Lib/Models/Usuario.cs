@@ -49,6 +49,10 @@ namespace ReconhecimentoFacial.Lib.Models
         {
             Senha = senha;
         }
+        public void SetUrlImagemCadastro(string urlImagemCadastro)
+        {
+            UrlImagemCadastro = urlImagemCadastro;
+        }
         public void SetDataCriacao(DateTime dataCriacao)
         {
             DataCriacao = dataCriacao;
