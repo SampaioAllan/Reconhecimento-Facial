@@ -129,6 +129,25 @@ namespace ReconhecimentoFacial.Web.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("Login E-mail/Senha")]
+        public async Task<IActionResult> LoginEmailSenha(string email, string senha)
+        {
+            var usuario = await _repositorio.BuscarUsuarioPorEmail(email);
+            var verificacao = await ConferirSenha(usuario, senha);
+            if(verificacao)
+            {
+                return Ok(usuario.Id);
+            }
+            return BadRequest("Login e Senha são incompatíveis!");
+        } 
+        private async Task<bool> ConferirSenha(Usuario usuario, string senha)
+        {
+            if(usuario.Senha == senha)
+            {
+                return true;
+            }
+            return false;
+        }
         [HttpPut("Atualizar E-mail")]
         public async Task<IActionResult> AtualizarEmailUsuarioPorId(int id, string email)
         {

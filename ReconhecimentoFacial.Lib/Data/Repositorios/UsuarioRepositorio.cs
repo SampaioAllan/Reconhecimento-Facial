@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ReconhecimentoFacial.Lib.Data.Repositorios.Interfaces;
 using ReconhecimentoFacial.Lib.Models;
 
@@ -18,6 +19,10 @@ namespace ReconhecimentoFacial.Lib.Data.Repositorios
         {
             _dbSet.Find(id).SetUrlImagemCadastro(urlAtualizado);
             await _context.SaveChangesAsync();
+        }
+         public async Task<Usuario> BuscarUsuarioPorEmail(string email)
+        {
+            return await _dbSet.AsNoTracking().FirstAsync(x => x.Email == email);
         }
     }
 }
