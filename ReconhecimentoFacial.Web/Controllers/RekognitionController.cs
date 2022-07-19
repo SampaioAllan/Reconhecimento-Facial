@@ -54,8 +54,7 @@ namespace ReconhecimentoFacial.Web.Controllers
         Name = nomeArquivo
       };
 
-      imagem.S3Object = s3Object;
-      
+        imagem.S3Object = s3Object;      
         entrada.Image = imagem;
         entrada.Attributes = new List<string>(){"ALL"};            
 

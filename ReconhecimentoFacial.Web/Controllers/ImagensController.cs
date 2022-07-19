@@ -16,22 +16,22 @@ namespace ReconhecimentoFacial.Controllers
             _amazonS3 = amazonS3;
         }
         
-        [HttpPost("bucket")]
+        [HttpPost("Criar Bucket")]
         public async Task<IActionResult> CriarBucket(string nomeBucket){
             var resposta = await _amazonS3.PutBucketAsync(nomeBucket);
             return Ok(resposta);
         }
-        [HttpPost]
-        public async Task<IActionResult> CriarImagem(IFormFile Imagem)
+        [HttpPost("Criar imagem")]
+        public async Task<IActionResult> CriarImagem(IFormFile imagem)
         {
-            if(!_extensoesImagem.Contains(Imagem.ContentType))
+            if(!_extensoesImagem.Contains(imagem.ContentType))
             return BadRequest("Formato Inválido!");
             using (var streamDaImagem = new MemoryStream())
             {
-                await Imagem.CopyToAsync(streamDaImagem);
+                await imagem.CopyToAsync(streamDaImagem);
 
                 var request = new PutObjectRequest();
-                request.Key = "reconhecimento"+ Imagem.FileName;
+                request.Key = "reconhecimento"+ imagem.FileName;
                 request.BucketName = "registro-facial";
                 request.InputStream = streamDaImagem;
 
@@ -40,7 +40,7 @@ namespace ReconhecimentoFacial.Controllers
             }
 
         }
-        [HttpGet("bucket")]
+        [HttpGet("Listar Buckets")]
         public async Task<IActionResult> ListarBuckets()
         {
             var resposta = await _amazonS3.ListBucketsAsync();
