@@ -1,4 +1,4 @@
-namespace ReconhecimentoFacial.Web.DTOs
+namespace ReconhecimentoFacial.Application.DTOs
 {
     public class UsuarioDTO
     {
@@ -9,9 +9,5 @@ namespace ReconhecimentoFacial.Web.DTOs
         public string Nome { get; set; }
         public string Senha { get; set; }
         public DateTime DataCriacao { get; set; }
-        public UsuarioDTO()
-        {
-            
-        }
     }
 }

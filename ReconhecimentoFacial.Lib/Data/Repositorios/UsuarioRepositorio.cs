@@ -5,7 +5,7 @@ using ReconhecimentoFacial.Lib.Models;
 namespace ReconhecimentoFacial.Lib.Data.Repositorios
 {
     public class UsuarioRepositorio : RepositorioBase<Usuario>, IUsuarioRepositorio
-    {
+    { 
         public UsuarioRepositorio(ReconhecimentoFacialContext context) : base(context, context.Usuarios)
         {
 

@@ -16,7 +16,7 @@ namespace ReconhecimentoFacial.Controllers
             _amazonS3 = amazonS3;
         }
         
-        [HttpPost("Criar Bucket")]
+        [HttpPost("")]
         public async Task<IActionResult> CriarBucket(string nomeBucket){
             var resposta = await _amazonS3.PutBucketAsync(nomeBucket);
             return Ok(resposta);
