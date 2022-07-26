@@ -1,8 +1,7 @@
-using Concessionaria.Lib.MinhasExceptions;
 using Microsoft.AspNetCore.Mvc;
-using ReconhecimentoFacial.Lib.Data.Repositorios.Interfaces;
-using ReconhecimentoFacial.Lib.Models;
-using ReconhecimentoFacial.Web.DTOs;
+using ReconhecimentoFacial.Lib.MinhasExceptions;
+using ReconhecimentoFacial.Application.DTOs;
+using ReconhecimentoFacial.Application.Services;
 
 namespace ReconhecimentoFacial.Web.Controllers
 {
@@ -10,33 +9,33 @@ namespace ReconhecimentoFacial.Web.Controllers
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioRepositorio _repositorio;
-        public UsuarioController(IUsuarioRepositorio repositorio)
+        private readonly IUsuarioApplication _application;
+        public UsuarioController(IUsuarioApplication application)
         {
-            _repositorio = repositorio;
+            _application = application;
         }
 
-        [HttpPost()]
-        public async Task<IActionResult> CriarUsuario(UsuarioDTO usuarioDTO)
+        [HttpPost]
+        public async Task<int> CriarUsuario(UsuarioDTO usuarioDTO)
         {
-            try
-            {
-                var usuario = new Usuario(usuarioDTO.Id, usuarioDTO.Email, usuarioDTO.Cpf, usuarioDTO.DataNascimento,
-                                      usuarioDTO.Nome, usuarioDTO.Senha, usuarioDTO.DataCriacao);
-                await _repositorio.Adicionar(usuario);
-                return Ok();
-            }
-            catch (ValidacaoDeDados ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return await _application.CriarUsuario(usuarioDTO);
+        }
+        [HttpPost("Imagem")]
+        public async Task<IActionResult> CadastrarImagem(int id, IFormFile imagem)
+        {
+            var imagemCadastrada = await _application.CadastrarImagem(id, imagem);
+            if (imagemCadastrada)
+                return Ok();            
+            else
+                return BadRequest("Imagem Inválida!");
+            
         }
         [HttpGet()]
         public async Task<IActionResult> BuscarUsuarios()
         {
             try
             {
-                return Ok(await _repositorio.BuscarTodos());
+                return Ok(await _application.BuscarTodos());
             }
             catch (ValidacaoDeDados ex)
             {
@@ -48,38 +47,51 @@ namespace ReconhecimentoFacial.Web.Controllers
         {
             try
             {
-                return Ok(await _repositorio.BuscarPorId(id));
+                return Ok(await _application.BuscarPorId(id));
             }
             catch (ValidacaoDeDados ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut()]
-        public async Task<IActionResult> AtualizarEmailUsuarioPorId(int id, string email)
+        [HttpPost("LoginImagem")]
+        public async Task<IActionResult> LoginImagem(int id, IFormFile imagem)
+        {
+            var imagemConfirmada = await _application.LoginImagem(id, imagem);
+            if (imagemConfirmada)
+                return Ok("Id visual confirmada!");
+            else
+                return BadRequest("Acesso negado, Usuário incompatível!");
+        }
+        [HttpGet("LoginE-mail")]
+        public async Task<IActionResult> LoginEmailSenha(string email, string senha)
         {
             try
             {
-                await _repositorio.AtualizarEmail(id, email);
-                return Ok();
+                return Ok(await _application.LoginEmailSenha(email, senha));
             }
             catch (ValidacaoDeDados ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+        [HttpPut("Atualizar E-mail")]
+        public async Task<IActionResult> AtualizarEmailUsuarioPorId(int id, string email)
+        {
+            var emailAtualizado = await _application.AtualizarEmailUsuarioPorId(id, email);
+            if(emailAtualizado)
+                return Ok();
+            else
+                return BadRequest();
         }
         [HttpDelete()]
         public async Task<IActionResult> DeletarUsuarioPorID(int id)
         {
-            try
-            {
-                await _repositorio.DeletarItemDesejado(id);
+            var usuarioDeletado = await _application.DeletarUsuarioPorID(id);
+            if(usuarioDeletado)
                 return Ok();
-            }
-            catch (ValidacaoDeDados ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            else
+                return BadRequest();            
         }
     }
 }

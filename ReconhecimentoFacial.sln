@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial.Lib", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial", "ReconhecimentoFacial.Web\ReconhecimentoFacial.csproj", "{4A8743E5-80F3-47C0-98AB-50EED9040BC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial.Application", "ReconhecimentoFacial.Application\ReconhecimentoFacial.Application.csproj", "{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{4A8743E5-80F3-47C0-98AB-50EED9040BC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A8743E5-80F3-47C0-98AB-50EED9040BC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A8743E5-80F3-47C0-98AB-50EED9040BC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

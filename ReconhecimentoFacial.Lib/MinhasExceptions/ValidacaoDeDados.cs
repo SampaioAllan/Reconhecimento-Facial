@@ -1,4 +1,4 @@
-namespace Concessionaria.Lib.MinhasExceptions
+namespace ReconhecimentoFacial.Lib.MinhasExceptions
 {
     public class ValidacaoDeDados : Exception
     {   

@@ -1,29 +1,27 @@
-using Concessionaria.Lib.MinhasExceptions;
+using ReconhecimentoFacial.Lib.MinhasExceptions;
 namespace ReconhecimentoFacial.Lib.Models
 {
     public class Usuario : ModelBase
     {
-        public int Id { get; private set; }
         public string Email { get; private set; }
         public string Cpf { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public string Nome { get; private set; }
         public string Senha { get; private set; }
-        public string UrlImagemCadastro { get; private set; }
-        public DateTime DataCriacao { get; private set; }
-        public Usuario(int id, string email, string cpf, DateTime dataNascimento, string nome, string senha, DateTime dataCriacao)
+        public string? UrlImagemCadastro { get; private set; }
+        protected Usuario()
+        {
+            
+        }
+        public Usuario(int id, string email, string cpf, DateTime dataNascimento, string nome, string senha, DateTime dataCriacao) : base(id, dataCriacao)
         {
             SetId(id);
             SetEmail(email);
-            SetCpf(Cpf);
+            SetCpf(cpf);
             SetDataNascimento(dataNascimento);
             SetNome(nome);
             Setsenha(senha);
             SetDataCriacao(dataCriacao);
-        }
-        public void SetId(int id)
-        {
-            Id = id;
         }
         public void SetEmail(string email)
         {
@@ -45,9 +43,9 @@ namespace ReconhecimentoFacial.Lib.Models
         {
             Senha = senha;
         }
-        public void SetDataCriacao(DateTime dataCriacao)
+        public void SetUrlImagemCadastro(string urlImagemCadastro)
         {
-            DataCriacao = dataCriacao;
+            UrlImagemCadastro = urlImagemCadastro;
         }
         public string ValidarEmail(string email)
         {
