@@ -16,19 +16,12 @@ namespace ReconhecimentoFacial.Application.Services
         public void AdicionarServicos(WebApplicationBuilder builder)
         {
             builder.Services.AddDbContext<ReconhecimentoFacialContext>(
-        conn => conn.UseNpgsql(builder.Configuration.GetConnectionString("ReconhecimentoFacialDB"))
+            conn => conn.UseNpgsql(builder.Configuration.GetConnectionString("ReconhecimentoFacialDB"))
                     .UseSnakeCaseNamingConvention()
-                    );
-
-            builder.Services.AddControllers()
-                            .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
-                            Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                    );            
 
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             builder.Services.AddScoped<IUsuarioApplication, UsuarioApplication>();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             var awsOptions = builder.Configuration.GetAWSOptions();
             awsOptions.Credentials = new EnvironmentVariablesAWSCredentials();
