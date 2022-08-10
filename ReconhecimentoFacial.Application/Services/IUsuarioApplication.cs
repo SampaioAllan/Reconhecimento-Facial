@@ -7,13 +7,13 @@ namespace ReconhecimentoFacial.Application.Services
     public interface IUsuarioApplication
     {
         Task<int> CriarUsuario(UsuarioDTO usuarioDto);
-        Task<bool> CadastrarImagem(int id, IFormFile imagem);
+        Task CadastrarImagem(int id, IFormFile imagem);
         Task<List<Usuario>> BuscarTodos();
         Task<Usuario> BuscarPorId(int id);
-        Task<bool> LoginImagem(int id, IFormFile imagem);
+        Task LoginImagem(int id, IFormFile imagem);
         Task<int> LoginEmailSenha(string email, string senha);
-        Task<bool> AtualizarEmailUsuarioPorId(int id, string email);
-        Task<bool> DeletarUsuarioPorID(int id);
+        Task AtualizarEmailUsuarioPorId(int id, string email);
+        Task DeletarUsuarioPorID(int id);
 
     }
 }

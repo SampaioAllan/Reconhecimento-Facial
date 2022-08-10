@@ -1,10 +1,5 @@
-using Amazon.Runtime;
-using Amazon.S3;
-using Amazon.Rekognition;
-using Microsoft.EntityFrameworkCore;
-using ReconhecimentoFacial.Lib.Data.Repositorios;
-using ReconhecimentoFacial.Lib.Data.Repositorios.Interfaces;
-using ReconhecimentoFacial.Application.Services;
+using ReconhecimentoFacial.Injecao;
+using ReconhecimentoFacial.Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +22,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<MiddlewareReconhecimento>();
 
 app.UseHttpsRedirection();
 
