@@ -1,6 +1,6 @@
 using ReconhecimentoFacial.Lib.MinhasExceptions;
 
-namespace ReconhecimentoFacial.Web.Midllewares
+namespace ReconhecimentoFacial.Web.Middlewares
 {
     public class MiddlewareReconhecimento
     {

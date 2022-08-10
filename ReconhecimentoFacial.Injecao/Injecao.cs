@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ReconhecimentoFacial.Application.Services;
 using ReconhecimentoFacial.Lib.Data.Repositorios;
 using ReconhecimentoFacial.Lib.Data.Repositorios.Interfaces;
+using ReconhecimentoFacial.Services;
 
-namespace ReconhecimentoFacial.Application.Services
+namespace ReconhecimentoFacial.Injecao
 {
     public class Injecao
     {
@@ -21,7 +23,8 @@ namespace ReconhecimentoFacial.Application.Services
                     );            
 
             builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-            builder.Services.AddScoped<IUsuarioApplication, UsuarioApplication>();
+            builder.Services.AddScoped<IUsuarioApplication, UsuarioApplication>();            
+            builder.Services.AddScoped<AwsServices>();
 
             var awsOptions = builder.Configuration.GetAWSOptions();
             awsOptions.Credentials = new EnvironmentVariablesAWSCredentials();

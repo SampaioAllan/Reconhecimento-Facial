@@ -5,9 +5,13 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial.Lib", "ReconhecimentoFacial.Lib\ReconhecimentoFacial.Lib.csproj", "{52A75124-B4FA-44C8-9BCD-AF45275E0824}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial", "ReconhecimentoFacial.Web\ReconhecimentoFacial.csproj", "{4A8743E5-80F3-47C0-98AB-50EED9040BC6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial", "ReconhecimentoFacial.Web\ReconhecimentoFacial.Web.csproj", "{4A8743E5-80F3-47C0-98AB-50EED9040BC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial.Application", "ReconhecimentoFacial.Application\ReconhecimentoFacial.Application.csproj", "{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial.Services", "ReconhecimentoFacial.Services\ReconhecimentoFacial.Services.csproj", "{C9F9FBCA-0EA5-46A9-AF32-E89230F565AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReconhecimentoFacial.Injecao", "ReconhecimentoFacial.Injecao\ReconhecimentoFacial.Injecao.csproj", "{8925B904-DBAB-4704-BA87-19A38A70CFBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +34,13 @@ Global
 		{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6880D8A6-FFB8-4D93-83F3-2DD944B6D82D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9F9FBCA-0EA5-46A9-AF32-E89230F565AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9F9FBCA-0EA5-46A9-AF32-E89230F565AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9F9FBCA-0EA5-46A9-AF32-E89230F565AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9F9FBCA-0EA5-46A9-AF32-E89230F565AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8925B904-DBAB-4704-BA87-19A38A70CFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8925B904-DBAB-4704-BA87-19A38A70CFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8925B904-DBAB-4704-BA87-19A38A70CFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8925B904-DBAB-4704-BA87-19A38A70CFBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
