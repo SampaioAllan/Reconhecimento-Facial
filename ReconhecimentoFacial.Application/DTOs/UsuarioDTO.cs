@@ -2,7 +2,6 @@ namespace ReconhecimentoFacial.Application.DTOs
 {
     public class UsuarioDTO
     {
-        public int Id { get; set; }
         public string Email { get;  set; }
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; set; }

@@ -18,7 +18,7 @@ namespace ReconhecimentoFacial.Lib.Data.Repositorios
             await _dbSet.AddAsync(item);
             await _context.SaveChangesAsync();
         }
-        public async Task<T> BuscarPorId(int id)
+        public async Task<T> BuscarPorId(Guid id)
         {
             return await _dbSet.AsNoTracking().FirstAsync(x => x.Id == id);
         }
@@ -26,7 +26,7 @@ namespace ReconhecimentoFacial.Lib.Data.Repositorios
         {
             return await _dbSet.AsNoTracking().ToListAsync();
         }
-        public async Task DeletarItemDesejado(int id)
+        public async Task DeletarItemDesejado(Guid id)
         {
             var itemARemover = await _dbSet.FindAsync(id);
             _dbSet.Remove(itemARemover);

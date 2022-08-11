@@ -17,16 +17,16 @@ namespace ReconhecimentoFacial.Application.Services
             _awsServices = awsServices;
         }
         //PRINCIPAL
-        public async Task<int> CriarUsuario(UsuarioDTO usuarioDTO)
+        public async Task<Guid> CriarUsuario(UsuarioDTO usuarioDTO)
         {
-            var usuario = new Usuario(usuarioDTO.Id, usuarioDTO.Email, usuarioDTO.Cpf, usuarioDTO.DataNascimento,
+            var usuario = new Usuario(usuarioDTO.Email, usuarioDTO.Cpf, usuarioDTO.DataNascimento,
                                     usuarioDTO.Nome, usuarioDTO.Senha, usuarioDTO.DataCriacao);
             await _repositorio.Adicionar(usuario);
 
             return (usuario.Id);
         }
         //PRINCIPAL
-        public async Task CadastrarImagem(int id, IFormFile imagem)
+        public async Task CadastrarImagem(Guid id, IFormFile imagem)
         {
             var nomeArquivo = await _awsServices.SalvarNoS3(imagem);
             var imagemValida = await _awsServices.ValidarImagem(nomeArquivo);
@@ -47,12 +47,12 @@ namespace ReconhecimentoFacial.Application.Services
             return await _repositorio.BuscarTodos();
         }
         //PRINCIPAL
-        public async Task<Usuario> BuscarPorId(int id)
+        public async Task<Usuario> BuscarPorId(Guid id)
         {
             return await _repositorio.BuscarPorId(id);
         }
         //PRINCIPAL
-        public async Task LoginImagem(int id, IFormFile imagem)
+        public async Task LoginImagem(Guid id, IFormFile imagem)
         {
             var usuario = await _repositorio.BuscarPorId(id);
             var imagemConfirmada = await _awsServices.CompararImagem(usuario.UrlImagemCadastro, imagem);
@@ -61,7 +61,7 @@ namespace ReconhecimentoFacial.Application.Services
         }
         
         //PRINCIPAL
-        public async Task<int> LoginEmailSenha(string email, string senha)
+        public async Task<Guid> LoginEmailSenha(string email, string senha)
         {
             var usuario = await _repositorio.BuscarUsuarioPorEmail(email);
             var verificacao = await ConferirSenha(usuario, senha);
@@ -77,11 +77,11 @@ namespace ReconhecimentoFacial.Application.Services
             return usuario.Senha == senha;
         }
         //PRINCIPAL
-        public async Task AtualizarEmailUsuarioPorId(int id, string email)
+        public async Task AtualizarEmailUsuarioPorId(Guid id, string email)
         {
             await _repositorio.AtualizarEmail(id, email);
         }
-        public async Task DeletarUsuarioPorID(int id)
+        public async Task DeletarUsuarioPorID(Guid id)
         {
             await _repositorio.DeletarItemDesejado(id);
         }
