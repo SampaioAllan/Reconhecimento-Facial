@@ -21,7 +21,7 @@ namespace ReconhecimentoFacial.Web.Controllers
             return Ok(response);
         }
         [HttpPost("Imagem")]
-        public async Task<IActionResult> CadastrarImagem(int id, IFormFile imagem)
+        public async Task<IActionResult> CadastrarImagem(Guid id, IFormFile imagem)
         {
             await _application.CadastrarImagem(id, imagem);  
             return Ok();          
@@ -34,13 +34,13 @@ namespace ReconhecimentoFacial.Web.Controllers
             
         }
         [HttpGet("Id")]
-        public async Task<IActionResult> BuscarUsuarioPorID(int id)
+        public async Task<IActionResult> BuscarUsuarioPorID(Guid id)
         {
             var usuario = await _application.BuscarPorId(id);
             return Ok(usuario);
         }
         [HttpPost("LoginImagem")]
-        public async Task<IActionResult> LoginImagem(int id, IFormFile imagem)
+        public async Task<IActionResult> LoginImagem(Guid id, IFormFile imagem)
         {
             await _application.LoginImagem(id, imagem);
             return Ok("Id visual confirmada!");
@@ -51,13 +51,13 @@ namespace ReconhecimentoFacial.Web.Controllers
             return Ok(await _application.LoginEmailSenha(email, senha));
         }
         [HttpPut("E-mail")]
-        public async Task<IActionResult> AtualizarEmailUsuarioPorId(int id, string email)
+        public async Task<IActionResult> AtualizarEmailUsuarioPorId(Guid id, string email)
         {
             await _application.AtualizarEmailUsuarioPorId(id, email);
             return Ok();
         }
         [HttpDelete]
-        public async Task<IActionResult> DeletarUsuarioPorID(int id)
+        public async Task<IActionResult> DeletarUsuarioPorID(Guid id)
         {
             await _application.DeletarUsuarioPorID(id);
             return Ok();            

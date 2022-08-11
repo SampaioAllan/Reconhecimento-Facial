@@ -13,9 +13,8 @@ namespace ReconhecimentoFacial.Lib.Models
         {
             
         }
-        public Usuario(int id, string email, string cpf, DateTime dataNascimento, string nome, string senha, DateTime dataCriacao) : base(id, dataCriacao)
+        public Usuario(string email, string cpf, DateTime dataNascimento, string nome, string senha, DateTime dataCriacao) : base(Guid.NewGuid(), dataCriacao)
         {
-            SetId(id);
             SetEmail(email);
             SetCpf(cpf);
             SetDataNascimento(dataNascimento);
