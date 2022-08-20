@@ -1,3 +1,5 @@
+using System.Text;
+using Konscious.Security.Cryptography;
 using ReconhecimentoFacial.Lib.MinhasExceptions;
 namespace ReconhecimentoFacial.Lib.Models
 {
@@ -40,7 +42,7 @@ namespace ReconhecimentoFacial.Lib.Models
         }
         public void Setsenha(string senha)
         {
-            Senha = senha;
+            Senha = CriarHash(ValidarSenha(senha));
         }
         public void SetUrlImagemCadastro(string urlImagemCadastro)
         {
@@ -69,7 +71,32 @@ namespace ReconhecimentoFacial.Lib.Models
                 return dataNascimento;
             }
             throw new ValidacaoDeDados("Data de nascimento inválida!");
-        }        
+        }      
+        public string ValidarSenha(string senha)
+        {
+            if (senha.Length >= 8)
+            {
+                return senha;
+            }
+            throw new ValidacaoDeDados("Senha deve ter no mínimo 8 caracteres!");
+        }
+        private string CriarHash(string senha)
+        {
+            var argon2 = new Argon2id(Encoding.UTF8.GetBytes(senha));
+
+            argon2.DegreeOfParallelism = 8;
+            argon2.Iterations = 4;
+            argon2.MemorySize = 1024 * 1024;
+
+            var hash = argon2.GetBytes(16);
+
+            return Convert.ToBase64String(hash);
+        }  
+        public bool VerificarHash(string senhaInserida, string hashSalvo)
+        {
+            var hashLogin = CriarHash(senhaInserida);
+            return hashSalvo.SequenceEqual(hashLogin);
+        }
     }
     
 }   

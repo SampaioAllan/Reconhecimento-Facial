@@ -18,7 +18,7 @@ namespace ReconhecimentoFacial.Web.Middlewares
             catch (ValidacaoDeDados ex)
             {
                 context.Response.StatusCode = 400;
-                await context.Response.WriteAsync(ex.Message);
+                await context.Response.WriteAsJsonAsync(ex.Message);
             }
         }
     }
