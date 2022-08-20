@@ -16,7 +16,6 @@ namespace ReconhecimentoFacial.Application.Services
             _repositorio = repositorio;
             _awsServices = awsServices;
         }
-        //PRINCIPAL
         public async Task<Guid> CriarUsuario(UsuarioDTO usuarioDTO)
         {
             var usuario = new Usuario(usuarioDTO.Email, usuarioDTO.Cpf, usuarioDTO.DataNascimento,
@@ -24,8 +23,7 @@ namespace ReconhecimentoFacial.Application.Services
             await _repositorio.Adicionar(usuario);
 
             return (usuario.Id);
-        }
-        //PRINCIPAL
+        }        
         public async Task CadastrarImagem(Guid id, IFormFile imagem)
         {
             var nomeArquivo = await _awsServices.SalvarNoS3(imagem);
@@ -39,44 +37,33 @@ namespace ReconhecimentoFacial.Application.Services
                 await _awsServices.DeletarNoS3(nomeArquivo);
                 throw new Exception("Imagem não foi salva!");
             } 
-        }
-        
-        //PRINCIPAL
+        }      
         public async Task<List<Usuario>> BuscarTodos()
         {
             return await _repositorio.BuscarTodos();
-        }
-        //PRINCIPAL
+        }        
         public async Task<Usuario> BuscarPorId(Guid id)
         {
             return await _repositorio.BuscarPorId(id);
-        }
-        //PRINCIPAL
+        }        
         public async Task LoginImagem(Guid id, IFormFile imagem)
         {
             var usuario = await _repositorio.BuscarPorId(id);
             var imagemConfirmada = await _awsServices.CompararImagem(usuario.UrlImagemCadastro, imagem);
             if (!imagemConfirmada)
                 throw new ValidacaoDeDados("Acesso negado, Usuário incompatível!");     
-        }
-        
-        //PRINCIPAL
+        }        
         public async Task<Guid> LoginEmailSenha(string email, string senha)
         {
             var usuario = await _repositorio.BuscarUsuarioPorEmail(email);
-            var verificacao = await ConferirSenha(usuario, senha);
+            var verificacao = usuario.VerificarHash(senha, usuario.Senha);
             if (verificacao)
             {
                 return (usuario.Id);
             }
             else
                 throw new ValidacaoDeDados("Login e Senha são incompatíveis!");
-        }
-        private async Task<bool> ConferirSenha(Usuario usuario, string senha)
-        {
-            return usuario.Senha == senha;
-        }
-        //PRINCIPAL
+        }        
         public async Task AtualizarEmailUsuarioPorId(Guid id, string email)
         {
             await _repositorio.AtualizarEmail(id, email);
